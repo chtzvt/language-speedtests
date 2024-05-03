@@ -8,10 +8,10 @@ i = 2
 while (i <= prime): 
 
     if (prime % i == 0): 
-	prime = prime/i
-	i = i - 1
+        prime = prime/i
+        i = i - 1
 	
     i = i + 1
 
-print i		
+print(i)
 

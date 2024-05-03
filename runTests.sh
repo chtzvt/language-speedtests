@@ -17,9 +17,11 @@ else
 fi
 
 JAVA="$(java -version 2>&1)"
-PYTHON="$(python --version 2>&1)"
+PYTHON="$(python3 --version 2>&1)"
 RUBY="$(ruby --version 2>&1)"
 NODE="$(node --version 2>&1)"
+GO="$(go version 2>&1)"
+CBAT="2a6d82bcd15f3160203ad716eadbe8050ae44d73" # HEAD
 
 echo -e "
 
@@ -46,6 +48,10 @@ Language versions:
 		`echo $RUBY`
 	NodeJS:
 		`echo $NODE`
+	Go:
+		`echo $GO`
+	CBAT:
+		`echo $CBAT`
 "
 
 echo "Testing C..."
@@ -59,15 +65,24 @@ cd ..
 echo -e "\n"
 
 echo "Testing Python..."
-(time python ./src/Prime.py)
+(time python3 ./src/Prime.py)
 echo -e "\n"
 
 echo "Testing Ruby..."
-(time ruby ./src/Prime.rb)
+(time ruby --yjit ./src/Prime.rb)
 echo -e "\n"
 
 echo "Testing JavaScript..."
 (time node ./src/Prime.js)
+echo -e "\n"
+
+echo "Testing Go..."
+(time ./bin/Prime.go)
+echo -e "\n"
+
+echo "Testing CBAT..."
+cd ~/Developer/BBS_VM/cbat/
+(time ruby exec.rb /tmp/language-speedtests/src/Prime.cbat)
 echo -e "\n"
 
 echo -e "Testing complete! \n-----------------"
